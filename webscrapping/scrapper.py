@@ -5,6 +5,7 @@ def saludo():
     
 def adios():
     print("adios")
+    print("hasta luego payaso")
     
 if __name__ == "__main__":
     saludo()

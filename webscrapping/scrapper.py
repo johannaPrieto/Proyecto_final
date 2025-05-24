@@ -1,11 +1,21 @@
-def saludo():
-    print("holaaaa")
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import time
+import matplotlib.pyplot as plt
+import plotly.express as px
 
-    print("ya me uni al proyecto:) soy adrian")
-    
-def adios():
-    print("adios")
-    print("hasta luego payaso")
+# URL base del sitio
+BASE_URL = "http://books.toscrape.com/"
+
+
+# ----------------------------- FUNCIONES DE SCRAPING -----------------------------
+
+def get_soup(url):
+    """Obtiene y parsea el contenido HTML de una URL."""
+    response = requests.get(url)
+    return BeautifulSoup(response.text, "html.parser")
+
     
 if __name__ == "__main__":
     saludo()

@@ -52,3 +52,69 @@ def scrapear_libros(base_url, paginas=5):
         else:
             break
     return libros
+
+# --------------------- MIGRACIÓN MYSQL ---------------------
+def migrar_a_mysql(csv_path):
+    df = pd.read_csv(csv_path)
+    df.columns = df.columns.str.strip()
+
+    conexion = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='12345678',
+        database='books_db',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    cursor = conexion.cursor()
+
+    # Limpiar tablas si existen
+    cursor.execute("DROP TABLE IF EXISTS libros")
+    cursor.execute("DROP TABLE IF EXISTS categorias")
+
+    # Crear tabla de categorías
+    cursor.execute("""
+        CREATE TABLE categorias (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nombre VARCHAR(100) UNIQUE
+        )
+    """)
+
+    # Crear tabla de libros con FK a categoría
+    cursor.execute("""
+        CREATE TABLE libros (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            titulo TEXT,
+            precio VARCHAR(10),
+            disponibilidad TEXT,
+            calificacion VARCHAR(20),
+            url_imagen TEXT,
+            url_detalle TEXT,
+            categoria_id INT,
+            FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+        )
+    """)
+
+    # Insertar categorías únicas
+    categorias_unicas = df["categoria"].dropna().unique()
+    categoria_id_map = {}
+    for nombre in categorias_unicas:
+        cursor.execute("INSERT INTO categorias (nombre) VALUES (%s)", (nombre,))
+        categoria_id_map[nombre] = cursor.lastrowid
+
+    # Insertar libros con su categoria_id
+    for _, row in df.iterrows():
+        categoria = row["categoria"]
+        categoria_id = categoria_id_map.get(categoria)
+        cursor.execute("""
+            INSERT INTO libros (titulo, precio, disponibilidad, calificacion, url_imagen, url_detalle, categoria_id)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """, (
+            row["titulo"], row["precio"], row["disponibilidad"], row["calificacion"],
+            row["url_imagen"], row["url_detalle"], categoria_id
+        ))
+
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    print("✅ Migración a MySQL con normalización exitosa")

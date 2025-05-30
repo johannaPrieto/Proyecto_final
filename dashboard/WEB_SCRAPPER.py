@@ -34,3 +34,21 @@ def extraer_datos_libro(book, base_url):
         "url_imagen": img_url,
         "url_detalle": book_url
     }
+def scrapear_libros(base_url, paginas=5):
+    libros = []
+    next_page = "catalogue/page-1.html"
+    actual = 1
+    while next_page and actual <= paginas:
+        print(f"📘 Scrapeando página {actual}: {base_url}{next_page}")
+        soup = obtener_sopa(f"{base_url}{next_page}")
+        for libro in soup.select(".product_pod"):
+            data = extraer_datos_libro(libro, base_url)
+            libros.append(data)
+            time.sleep(0.3)
+        siguiente = soup.select_one(".next a")
+        if siguiente and actual < paginas:
+            next_page = "catalogue/" + siguiente["href"]
+            actual += 1
+        else:
+            break
+    return libros

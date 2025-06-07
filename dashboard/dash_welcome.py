@@ -21,7 +21,7 @@ def welcome():
             ], style={"flex": "1"})
         ],
         style={
-            "backgroundColor": "#0a4f8d",
+            "backgroundColor": "#2a5674",
             "height": "50vh",
             "padding": "40px",
             "display": "flex",

@@ -4,7 +4,7 @@ from dash import Input, Output, dcc, html, callback
 from dash_welcome import welcome
 from grafica_1 import graficar_plotly, register_callbacks
 from grafica_2 import kpi_libros_layout
-
+from gracias import pagina_gracias
 
 
 # Estilos
@@ -15,8 +15,10 @@ SIDEBAR_STYLE = {
     "bottom": 0,
     "width": "16rem",
     "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
+    "background-color": "#2c3e50",
+    "color": "white"
 }
+
 CONTENT_STYLE = {
     "margin-left": "18rem",
     "margin-right": "2rem",
@@ -25,15 +27,16 @@ CONTENT_STYLE = {
 
 
 sidebar = html.Div([
+
     html.H2("Indice", className="display-4"),
     html.Hr(),
     html.P("Datos destacados", className="lead"),
     dbc.Nav([
-        dbc.NavLink("Inicio", href="/", active="exact"),
-        dbc.NavLink("Categoria", href="/dash1", active="exact"),
-        dbc.NavLink("Calificacion", href="/dash2", active="exact"),
-        dbc.NavLink("¡Gracias!", href="/dash3", active="exact"),
-        dbc.NavLink("eBook", href="https://books.toscrape.com/index.html", active="exact", target="_blank"),
+        dbc.NavLink("Inicio", href="/", active="exact", style={"color": "white"}),
+        dbc.NavLink("Categoria", href="/dash1", active="exact", style={"color": "white"}),
+        dbc.NavLink("Calificacion", href="/dash2", active="exact", style={"color": "white"}),
+        dbc.NavLink("¡Gracias!", href="/dash3", active="exact", style={"color": "white"}),
+        dbc.NavLink("eBook", href="https://books.toscrape.com/index.html", active="exact", target="_blank", style={"color": "white"}),
     ], vertical=True, pills=True),
 ], style=SIDEBAR_STYLE)
 
@@ -58,7 +61,7 @@ def render_page_content(pathname):
     elif pathname == "/dash2":
         return kpi_libros_layout()
     elif pathname == "/dash3":
-        return html.P("Dashboard 3 en construcción.")
+        return pagina_gracias()
     return html.Div([
         html.H1("404: Página no encontrada", className="text-danger"),
         html.Hr(),

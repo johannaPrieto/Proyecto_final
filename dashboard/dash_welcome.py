@@ -2,7 +2,7 @@ from dash import html, Dash
 
 def welcome():
     body = html.Div([
-        # Parte superior (azul oscuro) con imagen y texto en fila
+
         html.Div([
             html.Div([
                 html.Img(
@@ -21,18 +21,18 @@ def welcome():
             ], style={"flex": "1"})
         ],
         style={
-            "backgroundColor": "#2a5674",
+            "backgroundColor": "#2c3e50",
             "height": "50vh",
             "padding": "40px",
             "display": "flex",
             "alignItems": "center"
         }),
 
-        # Parte inferior (blanco)
+
         html.Div([
             html.Hr(),
             html.Div([
-                html.H1("Encontrarás", style={"color": "#0a4f8d"}),
+                html.H1("Encontrarás", style={"color": "#2c3e50"}),
                 html.P(
                     "En la página encontrarás una amplia variedad de categorías literarias que se adaptan a todos los gustos y preferencias. Desde géneros clásicos como Ficción, Romance, Misterio y Fantasía, hasta temáticas más específicas como Ficción Cristiana, Autobiografía, Psicología y Negocios. También se incluyen opciones para distintos públicos como Young Adult, New Adult, Infantil y Ficción para Mujeres. Si te interesan los libros de no ficción, podrás explorar categorías como Historia, Ciencia, Salud, Política y Autoayuda. Además, hay espacio para géneros artísticos y creativos como Poesía, Arte, Música y Narrativa Gráfica. Ya sea que busques un clásico literario, un thriller emocionante o una obra espiritual, esta página organiza el contenido en secciones temáticas que facilitan la búsqueda y enriquecen tu experiencia de lectura.",
                     style={"color": "black", "fontSize": "16px"}

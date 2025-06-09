@@ -62,7 +62,7 @@ def migrar_a_mysql(csv_path):
     conexion = pymysql.connect(
         host='localhost',
         user='root',
-        password='12345678',
+        password='MiniSQL',
         database='books_db',
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor
@@ -132,18 +132,18 @@ def menu():
 
         if opcion == "1":
             base_url = "http://books.toscrape.com/"
-            libros = scrapear_libros(base_url, paginas=5)
+            libros = scrapear_libros(base_url, paginas=17)
             df = pd.DataFrame(libros)
 
             # ✅ Limpiar precios: eliminar símbolos y convertir a float
             df["precio"] = df["precio"].str.replace(r"[^\d.]", "", regex=True)
             df["precio"] = pd.to_numeric(df["precio"], errors="coerce")
 
-            df.to_csv("dataset/books_5_paginas.csv", index=False, encoding="utf-8")
+            df.to_csv("books_5_paginas.csv", index=False, encoding="utf-8")
             print("📁 CSV guardado correctamente.")
 
         elif opcion == "2":
-            migrar_a_mysql("dataset/books_5_paginas.csv")
+            migrar_a_mysql("books_5_paginas.csv")
         elif opcion == "3":
             graficar_plotly()
         elif opcion == "4":

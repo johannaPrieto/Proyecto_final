@@ -146,7 +146,7 @@ def menu():
             migrar_a_mysql("dataset/books_5_paginas.csv")
         elif opcion == "3":
             graficar_plotly()
-        elif opcion == "6":
+        elif opcion == "4":
             print("👋 Hasta luego.")
             break
         else:

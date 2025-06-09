@@ -4,7 +4,7 @@ import plotly.express as px
 from dash import html, dcc, Output, Input
 
 def graficar_plotly():
-    # Conexión y extracción de datos
+
     conexion = pymysql.connect(
         host='localhost',
         user='root',

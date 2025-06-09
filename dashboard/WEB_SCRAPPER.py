@@ -8,6 +8,7 @@ import dash
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 import time
+from grafica_1 import graficar_plotly
 
 # --------------------- SCRAPING ---------------------
 def obtener_sopa(url):
@@ -145,9 +146,7 @@ def menu():
             migrar_a_mysql("dataset/books_5_paginas.csv")
         elif opcion == "3":
             graficar_plotly()
-        elif opcion == "4":
-            lanzar_dash()
-        elif opcion == "5":
+        elif opcion == "6":
             print("👋 Hasta luego.")
             break
         else:

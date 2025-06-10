@@ -8,7 +8,7 @@ def graficar_plotly():
     conexion = pymysql.connect(
         host='localhost',
         user='root',
-        password='MiniSQL',
+        password='12345678',
         database='books_db',
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor

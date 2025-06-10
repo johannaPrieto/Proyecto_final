@@ -9,7 +9,7 @@ from dash import dcc, html
 import dash_bootstrap_components as dbc
 import time
 from grafica_1 import graficar_plotly
-
+from menu_dash import crear_app
 # --------------------- SCRAPING ---------------------
 def obtener_sopa(url):
     response = requests.get(url)
@@ -62,7 +62,7 @@ def migrar_a_mysql(csv_path):
     conexion = pymysql.connect(
         host='localhost',
         user='root',
-        password='MiniSQL',
+        password='12345678',
         database='books_db',
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor
@@ -125,9 +125,7 @@ def menu():
         print("\n🔸 MENÚ DE OPCIONES 🔸")
         print("1. Scrapear libros y guardar CSV")
         print("2. Migrar datos a MySQL")
-        print("3. Mostrar gráfica estática con Plotly")
-        print("4. Lanzar dashboard con Dash")
-        print("5. Salir")
+        print("3. Salir")
         opcion = input("Selecciona una opción: ")
 
         if opcion == "1":
@@ -145,8 +143,6 @@ def menu():
         elif opcion == "2":
             migrar_a_mysql("books_5_paginas.csv")
         elif opcion == "3":
-            graficar_plotly()
-        elif opcion == "4":
             print("👋 Hasta luego.")
             break
         else:
